@@ -1,0 +1,5 @@
+* SchemeBBS for Docker
+  A simple Dockerfile for [[https://gitlab.com/naughtybits/schemebbs][SchemeBBS]].
+
+  Practically useless on its own, as it only serves =localhost=.
+  Needs a reverse proxy to be useful.
