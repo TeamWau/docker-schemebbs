@@ -1,8 +1,9 @@
 * SchemeBBS for Docker
   A simple Dockerfile for [[https://gitlab.com/naughtybits/schemebbs][SchemeBBS]].
-
-  Practically useless on its own, as it only serves =localhost=.
   Needs a reverse proxy like nginx, Caddy or Traefik to be useful.
+
+  (This is an MIT/GNU Scheme web application. If you're looking for a
+  generic MIT/GNU Scheme image, [[https://github.com/scheme-containers/mit-scheme][walk this way]].)
 
   *TODO:* Allow the initial list of boards to be passed as an external
   environment variable.
