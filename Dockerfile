@@ -39,6 +39,4 @@ RUN rm -rf mit-scheme-${SCHEME_VERSION} ${SCHEME_TARBALL} md5sum.txt \
 ## Run
 EXPOSE 80
 VOLUME /opt/schemebbs/data
-# TODO: Take list of boards to create as an external env var.
-#RUN ./create-boards.sh test
 CMD /opt/mit-scheme/bin/scheme --args 80 < bbs.scm

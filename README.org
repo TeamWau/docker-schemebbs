@@ -5,10 +5,9 @@
   (This is an MIT/GNU Scheme web application. If you're looking for a
   generic MIT/GNU Scheme image, [[https://github.com/scheme-containers/mit-scheme][walk this way]].)
 
-  *TODO:* Allow the initial list of boards to be passed as an external
-  environment variable.
-
 ** Usage
    #+BEGIN_SRC
-   % docker run -p 80:80 --name sbbs -v /opt/bbs:/opt/schemebbs/data -d erkin/schemebbs
+   % export DATADIR=/opt/bbs
+   % docker run -p 80:80 --name sbbs -v $DATADIR:/opt/schemebbs/data -d erkin/schemebbs
+   % ./create-boards.sh prog art knitting
    #+END_SRC
