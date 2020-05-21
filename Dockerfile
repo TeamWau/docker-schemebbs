@@ -15,7 +15,8 @@ RUN git -c advice.detachedHead=false checkout ${GIT_COMMIT}
 ADD https://ftp.gnu.org/gnu/mit-scheme/stable.pkg/${SCHEME_VERSION}/${SCHEME_TARBALL} ${SCHEME_TARBALL}
 # Verify integrity
 ADD https://ftp.gnu.org/gnu/mit-scheme/stable.pkg/${SCHEME_VERSION}/md5sums.txt md5sums.txt
-RUN md5sum -c --ignore-missing md5sums.txt && tar xfz ${SCHEME_TARBALL}
+# HACK: Busybox md5sum lacks the `--ignore-missing' option.
+RUN md5sum -c <(grep ${SCHEME_TARBALL} md5sums.txt) && tar xfz ${SCHEME_TARBALL}
 
 ## Patch
 # Apply in-house patches
