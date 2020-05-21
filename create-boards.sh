@@ -20,6 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+[ -z "$DATADIR" ] && { echo 'Set $DATADIR first.'; exit 1; }
 [ $# -eq 0 ] && { echo "Usage: $0 boardname..."; exit 1; }
 for board in $@; do
   if [ -f "$DATADIR/html/$board/index" ]; then
