@@ -3,3 +3,4 @@
 
   Practically useless on its own, as it only serves =localhost=.
   Needs a reverse proxy to be useful.
+  Don't forget to attach a volume to =/opt/schemebbs/data=.
