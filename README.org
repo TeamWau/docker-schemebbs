@@ -3,4 +3,11 @@
 
   Practically useless on its own, as it only serves =localhost=.
   Needs a reverse proxy like nginx, Caddy or Traefik to be useful.
-  Don't forget to attach a volume to =/opt/schemebbs/data=.
+
+  *TODO:* Allow the initial list of boards to be passed as an external
+  environment variable.
+
+** Usage
+   #+BEGIN_SRC
+   % docker run -p 80:80 --name sbbs -v /opt/bbs:/opt/schemebbs/data -d erkin/schemebbs
+   #+END_SRC
