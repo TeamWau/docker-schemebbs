@@ -12,11 +12,12 @@ RUN git clone -n https://gitlab.com/naughtybits/schemebbs.git /opt/schemebbs
 WORKDIR /opt/schemebbs
 # Disable pesky warning
 RUN git -c advice.detachedHead=false checkout ${GIT_COMMIT}
-ADD https://ftp.gnu.org/gnu/mit-scheme/stable.pkg/${SCHEME_VERSION}/${SCHEME_TARBALL} ${SCHEME_TARBALL}
-# Verify integrity
-ADD https://ftp.gnu.org/gnu/mit-scheme/stable.pkg/${SCHEME_VERSION}/md5sums.txt md5sums.txt
+RUN wget https://ftp.gnu.org/gnu/mit-scheme/stable.pkg/${SCHEME_VERSION}/${SCHEME_TARBALL}
 # HACK: Busybox md5sum lacks the `--ignore-missing' option.
-RUN md5sum -c <(grep ${SCHEME_TARBALL} md5sums.txt) && tar xfz ${SCHEME_TARBALL}
+RUN wget -qO - https://ftp.gnu.org/gnu/mit-scheme/stable.pkg/${SCHEME_VERSION}/md5sums.txt \
+	| grep ${SCHEME_TARBALL} > md5sum.txt
+# Verify integrity
+RUN md5sum -c md5sum.txt && tar xfz ${SCHEME_TARBALL}
 
 ## Patch
 # Apply in-house patches
@@ -32,7 +33,7 @@ RUN ./configure --disable-x11 --disable-edwin --disable-imail --prefix=/opt/mit-
 
 ## Cleanup
 WORKDIR /opt/schemebbs
-RUN rm -rf mit-scheme-${SCHEME_VERSION} ${SCHEME_TARBALL} md5sums.txt \
+RUN rm -rf mit-scheme-${SCHEME_VERSION} ${SCHEME_TARBALL} md5sum.txt \
 	&& apk del build-dependencies
 
 ## Run
