@@ -12,9 +12,9 @@ RUN git clone -n https://gitlab.com/naughtybits/schemebbs.git /opt/schemebbs
 WORKDIR /opt/schemebbs
 # Disable pesky warning
 RUN git -c advice.detachedHead=false checkout ${GIT_COMMIT}
-ADD https://ftp.gnu.org/gnu/mit-scheme/stable.pkg/${SCHEME_VERSION}/${SCHEME_TARBALL}
+ADD https://ftp.gnu.org/gnu/mit-scheme/stable.pkg/${SCHEME_VERSION}/${SCHEME_TARBALL} ${SCHEME_TARBALL}
 # Verify integrity
-ADD https://ftp.gnu.org/gnu/mit-scheme/stable.pkg/${SCHEME_VERSION}/md5sums.txt
+ADD https://ftp.gnu.org/gnu/mit-scheme/stable.pkg/${SCHEME_VERSION}/md5sums.txt md5sums.txt
 RUN md5sum -c --ignore-missing md5sums.txt && tar xfz ${SCHEME_TARBALL}
 
 ## Patch
