@@ -4,7 +4,7 @@ FROM alpine
 # Last known working versions
 ENV SCHEME_VERSION 9.2
 ENV SCHEME_TARBALL mit-scheme-${SCHEME_VERSION}-x86-64.tar.gz
-ENV GIT_COMMIT 12c1870a58edd3a5ca9a05b36426616042083577
+ENV GIT_COMMIT 03c95568db0930259365d791d346b6c45ebd2b17
 
 ## Fetch
 RUN apk --no-cache --update --virtual build-dependencies add build-base m4 git
@@ -19,13 +19,9 @@ RUN wget -qO - https://ftp.gnu.org/gnu/mit-scheme/stable.pkg/${SCHEME_VERSION}/m
 # Verify integrity
 RUN md5sum -c md5sum.txt && tar xfz ${SCHEME_TARBALL}
 
-## Patch
-# Apply in-house patches
-RUN for p in mit-scheme-9.2_patches/*.scm; do patch -p0 < "$p"; done
-# HACK: Bind to 0.0.0.0
-RUN sed -i deps/server.scm -e 's/host-address-loopback/host-address-any/'
-
 ## Build
+# Apply URI parser patch
+RUN patch -p0 < patch-runtime_http-syntax.scm
 WORKDIR /opt/schemebbs/mit-scheme-${SCHEME_VERSION}/src
 # Configure with plugins disabled
 RUN ./configure --disable-x11 --disable-edwin --disable-imail --prefix=/opt/mit-scheme \
