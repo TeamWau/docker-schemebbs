@@ -2,10 +2,9 @@ FROM alpine
 
 ## Env vars
 # Last known working versions
-ENV GIT_COMMIT 03c95568db0930259365d791d346b6c45ebd2b17
+ENV GIT_COMMIT d3c6a2a34e434fc2a39f18440bbde728ee969338
 ENV SCHEME_VERSION 9.2
 ENV SCHEME mit-scheme-${SCHEME_VERSION}
-
 ENV SOURCE_URI https://ftp.gnu.org/gnu/mit-scheme/stable.pkg/${SCHEME_VERSION}
 ENV SCHEME_SOURCE ${SCHEME}.tar.gz
 ENV SCHEME_BINARY ${SCHEME}-x86-64.tar.gz
