@@ -5,6 +5,8 @@ FROM alpine
 ENV GIT_COMMIT 03c95568db0930259365d791d346b6c45ebd2b17
 ENV SCHEME_VERSION 9.2
 ENV SCHEME mit-scheme-${SCHEME_VERSION}
+
+ENV SOURCE_URI https://ftp.gnu.org/gnu/mit-scheme/stable.pkg/${SCHEME_VERSION}
 ENV SCHEME_SOURCE ${SCHEME}.tar.gz
 ENV SCHEME_BINARY ${SCHEME}-x86-64.tar.gz
 
@@ -18,14 +20,14 @@ WORKDIR /opt/schemebbs
 # Disable pesky warning that clutters the build log
 RUN git -c advice.detachedHead=false checkout ${GIT_COMMIT}
 # Fetch tarballs and check integrity
-RUN wget https://ftp.gnu.org/gnu/mit-scheme/stable.pkg/${SCHEME_VERSION}/{${SCHEME_BINARY},${SCHEME_SOURCE},md5sums.txt}
+RUN wget ${SOURCE_URI}/${SCHEME_BINARY} ${SOURCE_URI}/${SCHEME_SOURCE} ${SOURCE_URI}/md5sums.txt
 # HACK: Busybox md5sum lacks the `--ignore-missing' option.
 RUN fgrep -e ${SCHEME_BINARY} -e ${SCHEME_SOURCE} md5sums.txt | md5sum -c
 
 ## Build and install the Scheme binary
 RUN tar xfz ${SCHEME_BINARY} -C ${SCHEME}-bootstrap
 WORKDIR /opt/schemebbs/${SCHEME}-bootstrap/src
-RUN ./configure --disable-x11 --disable-edwin --disable-imail --prefix=/opt/mit-scheme \
+RUN ./configure -q --disable-x11 --disable-edwin --prefix=/opt/mit-scheme \
 	&& make \
 	&& make install
 
@@ -36,7 +38,7 @@ RUN tar xfz ${SCHEME_SOURCE} -C ${SCHEME}
 RUN patch -p0 < patch-runtime_http-syntax.scm
 WORKDIR /opt/schemebbs/${SCHEME}/src
 # Configure with plugins disabled, build with bootstrap binaries
-RUN ./configure --disable-x11 --disable-edwin --disable-imail --prefix=/opt/mit-scheme \
+RUN ./configure -q --disable-x11 --disable-edwin --prefix=/opt/mit-scheme \
 	&& make
 # Remove bootstrap binaries before installing the newly built ones
 RUN rm -rf /opt/mit-scheme \
