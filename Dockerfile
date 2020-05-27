@@ -3,7 +3,7 @@ FROM alpine
 ## Env
 # Last known working versions
 ENV SCHEME_VERSION 9.2
-ENV SCHEME_TARBALL mit-scheme-${SCHEME_VERSION}-x86-64.tar.gz
+ENV SCHEME_TARBALL mit-scheme-${SCHEME_VERSION}.tar.gz
 ENV GIT_COMMIT 03c95568db0930259365d791d346b6c45ebd2b17
 
 ## Fetch
