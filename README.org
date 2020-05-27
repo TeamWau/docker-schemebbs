@@ -1,13 +1,21 @@
 * SchemeBBS for Docker
-  A simple Dockerfile for [[https://gitlab.com/naughtybits/schemebbs][SchemeBBS]].
-  Needs a reverse proxy like nginx, Caddy or Traefik to be useful.
+  A Dockerfile for [[https://gitlab.com/naughtybits/schemebbs][SchemeBBS]] with a bonus Docker Compose
+  configuration with Varnish cache and reverse proxy.
 
   (This is an MIT/GNU Scheme web application. If you're looking for a
   generic MIT/GNU Scheme image, [[https://github.com/scheme-containers/mit-scheme][walk this way]].)
 
 ** Usage
+   Standalone:
    #+BEGIN_SRC
-   % export DATADIR=/opt/bbs
-   % docker run -p 80:80 --name sbbs -v $DATADIR:/opt/schemebbs/data -d erkin/schemebbs
+   % export SBBS_DATADIR=/opt/bbs
+   % docker run -p 80:8080 --name sbbs -v $DATADIR:/opt/schemebbs/data -d erkin/schemebbs
    % ./create-boards.sh prog art knitting
+   #+END_SRC
+
+   With Varnish:
+   #+BEGIN_SRC
+   % export SBBS_DATADIR=/opt/bbs
+   % docker-compose up -d
+   % ./create-boards.sh cats music sewing
    #+END_SRC

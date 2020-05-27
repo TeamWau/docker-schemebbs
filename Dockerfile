@@ -33,6 +33,6 @@ RUN rm -rf mit-scheme-${SCHEME_VERSION} ${SCHEME_TARBALL} md5sum.txt \
 	&& apk del build-dependencies
 
 ## Run
-EXPOSE 80
+EXPOSE 8080
 VOLUME /opt/schemebbs/data
-CMD /opt/mit-scheme/bin/scheme --args 80 < bbs.scm
+CMD /opt/mit-scheme/bin/scheme --args 8080 < bbs.scm
