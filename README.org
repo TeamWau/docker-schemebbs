@@ -5,9 +5,8 @@
   generic MIT/GNU Scheme image, [[https://github.com/scheme-containers/mit-scheme][walk this way]].)
 
 ** Usage
-   Standalone:
    #+BEGIN_SRC
    % export SBBS_DATADIR=/opt/bbs
-   % docker run -p 80:8080 --name sbbs -v $SBBS_DATADIR:/opt/schemebbs/data -d erkin/schemebbs
+   % docker run -p 80:8080 --name sbbs -v "${SBBS_DATADIR}":/opt/schemebbs/data -d erkin/schemebbs
    % ./create-boards.sh prog art knitting
    #+END_SRC
