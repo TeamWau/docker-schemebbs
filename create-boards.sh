@@ -1,5 +1,14 @@
 #!/bin/sh
 
+if [ -z "$SBBS_DATADIR" ];
+then
+    echo 'Set $SBBS_DATADIR first.'
+    exit 1
+else
+    DATADIR="$SBBS_DATADIR"
+fi
+
+
 # Copyright (c) 2020 Ben Bitdiddle
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -12,15 +21,14 @@
 # The above copyright notice and this permission notice shall be included in all
 # copies or substantial portions of the Software.
 
-[ -z "$SBBS_DATADIR" ] && { echo 'Set $SBBS_DATADIR first.'; exit 1; }
 [ $# -eq 0 ] && { echo "Usage: $0 boardname..."; exit 1; }
 for board in $@; do
-  if [ -f "$SBBS_DATADIR/html/$board/index" ]; then
+  if [ -f "$DATADIR/html/$board/index" ]; then
     echo "board $board already exists"
   else
-      mkdir -p "$SBBS_DATADIR/sexp/$board"
-      mkdir -p "$SBBS_DATADIR/html/$board"
-      echo "()" > "$SBBS_DATADIR/sexp/$board/index"
+      mkdir -p "$DATADIR/sexp/$board"
+      mkdir -p "$DATADIR/html/$board"
+      echo "()" > "$DATADIR/sexp/$board/index"
       echo '<!DOCTYPE HTML PUBLIC "ISO/IEC 15445:2000//DTD HyperText Markup Language//EN">
 <HTML>
 <HEAD>
@@ -31,7 +39,7 @@ for board in $@; do
 <LINK href="/static/styles/default.css" rel="stylesheet" type="text/css"></HEAD>
 <BODY>
 <H1>'"$board"'</H1>
-<P class="nav">frontpage - <A href="/'"$board"'/list">thread list</A> - <A href="#newthread">new thread</A> - <A href="/">return</A></P>
+<P class="nav">frontpage - <A href="/'"$board"'/list">thread list</A> - <A href="#newthread">new thread</A> - <A href="/'"$board"'/preferences">preferences</A> - <A href="/">?</A></P>
 <HR>
 <H2 id="newthread">New Thread</H2>
 <FORM action="/'"$board"'/post" method="post">
@@ -44,6 +52,6 @@ for board in $@; do
 <P><INPUT type="text" name="name" class="name" size="11"><BR>
 <TEXTAREA name="message" class="message" rows="1" cols="11"></TEXTAREA></P></FIELDSET></FORM>
 <HR>
-<P class="footer">bbs.scm + <A href="https://www.gnu.org/software/mit-scheme/">MIT Scheme</A> + <A href="https://mitpress.mit.edu/sites/default/files/sicp/index.html">SICP</A> + Satori Mode</P></BODY></HTML>' > "$SBBS_DATADIR/html/$board/index"
+<P class="footer">bbs.scm + <A href="https://www.gnu.org/software/mit-scheme/">MIT Scheme</A> + <A href="https://mitpress.mit.edu/sites/default/files/sicp/index.html">SICP</A> + Satori Mode</P></BODY></HTML>' > "$DATADIR/html/$board/index"
   fi
 done
