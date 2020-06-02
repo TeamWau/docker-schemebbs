@@ -1,7 +1,7 @@
 * SchemeBBS for Docker
-  A Dockerfile for [[https://gitlab.com/naughtybits/schemebbs][SchemeBBS]]. You'll want to use a reverse proxy in
-  conjunction with this. Either use [[https://github.com/TeamWau/docker-schemebbs-nginx][docker-schemebbs-nginx]] or use
-  Docker Compose (eg [[https://gist.github.com/erkin/8489a6dc66c47bf465a483802d015c4a][Traefik]], [[https://gist.github.com/erkin/77cf91652d1535b2516f7214793440d8][Varnish]]).
+  A Dockerfile for [[https://gitlab.com/naughtybits/schemebbs][SchemeBBS]]. You'll want to use a reverse proxy like
+  Caddy in conjunction with this. Either use [[https://github.com/TeamWau/docker-schemebbs-nginx][docker-schemebbs-nginx]] or
+  use Docker Compose (for example; [[https://gist.github.com/erkin/8489a6dc66c47bf465a483802d015c4a][Traefik]] or [[https://gist.github.com/erkin/77cf91652d1535b2516f7214793440d8][Varnish]]).
 
   (This is an MIT/GNU Scheme web application. If you're looking for a
   generic MIT/GNU Scheme image, [[https://github.com/scheme-containers/mit-scheme][walk this way]].)

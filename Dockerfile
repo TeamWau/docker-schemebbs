@@ -2,7 +2,7 @@ FROM alpine
 
 ## Env vars
 # Last known working versions
-ENV LATEST_HASH 02cb1979e36e904e1c98284ab35bd445837dda5e
+ENV LATEST_HASH 07b4fe3cec0cb2e3e535df133e0a03f111027f61
 ENV SCHEME_VERSION 9.2
 
 ENV SCHEME mit-scheme-${SCHEME_VERSION}
